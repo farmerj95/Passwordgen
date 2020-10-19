@@ -1,77 +1,84 @@
+// declaring the values we are going to use
+const upperCaseString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const lowerCaseString = "abcdefghijklmnopqrstuvwxyz";
+const numericString = "1234567890";
+const specialCharString = `!"#$%&'(\`)*+,-./:;<=>?@[\\]^_{|}~`;
 
-// Assignment Code
-let generateBtn = document.querySelector("#generate");
+// changing the values to arrays
+const upperCaseArray = upperCaseString.split("");
+const lowerCaseArray = lowerCaseString.split("");
 
-// Write password to the #password input
-function writePassword() {
-  let password = generatePassword();
-  let passwordText = document.querySelector("#password");
-  passwordText.value = password;
+const numericArray = numericString.split("");
+const specialCharArray = specialCharString.split("");
 
+// setting up the button
+let generateBtn = document.querySelector("#passwordGeneratorButton");
+
+generateBtn.addEventListener('click', genCharArray);
+
+let passwordArray = [];
+
+function genCharArray() {
+ 
+  passwordArray = [];
+  if (document.getElementById("charType0").checked) {
+    passwordArray = passwordArray.concat(upperCaseArray);
+      }
+  if (document.getElementById("charType1").checked) {
+    passwordArray = passwordArray.concat(lowerCaseArray);
+  }
+  if (document.getElementById("charType2").checked) {
+    passwordArray = passwordArray.concat(numericArray);
+  }
+  if (document.getElementById("charType3").checked) {
+    passwordArray = passwordArray.concat(specialCharArray);
+  }
+  displayPasswordResults();
 }
 
-//Function to generate password based in user inputs
-function generatePassword() {
-
-  // prompt user for password length
-  let userLength = prompt("Enter desired password length(between 8 and 128.)");
-
-  // If not a number between 8 and 128, alert user
-  // This works to return the user to the main page, so they have to click Generate Password again.
-  if (userLength < 8 || userLength > 128 || isNaN(userLength)) {
-    alert("Please enter a valid password length.");
-    return;
-  };
-
-  //prompt user for password characters
-  let userLowerCase = confirm("Would you like LOWER CASE letters in your password?");
-  let userUpperCase = confirm("Would you like UPPER CASE letters in your password?");
-  let userNumbers = confirm("Would you like NUMBERS in your password?");
-  let userSymbols = confirm("Would you like SYMBOLS in your password?");
-
-  // Strings for password
-  let lowerCase = "abcdefghijklmnopqrstuvwxyz";
-  let upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  let numbers = "0123456789";
-  let symbols = "!*$%&#@+?:;()^";
-  let pwString = "";
-
-  // Create pwString based on user inputs
-  if (userLowerCase) {
-    pwString = pwString + lowerCase;
-  }
-
-  if (userUpperCase) {
-    pwString = pwString + upperCase;
-  }
-
-  if (userNumbers) {
-    pwString = pwString + numbers;
-  }
-
-  if (userSymbols) {
-    pwString = pwString + symbols;
-  }
-
-  // if pwString has no characters, alert the user
-  if (pwString === "") {
-    alert("A password requires some characters. Click Generate Password to try again.");
-    return;
-  }
-
-  // console.log(pwString);
-
-  // generate random string from StackOverflow: 
-  // https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
-  let userPassword = "";
-  for (let i = 0; i < userLength; i++) {
-    userPassword += pwString.charAt(Math.floor(Math.random() * pwString.length));
-  }
-
-  // console.log(userPassword);
-  // userPWPrompt = alert("Your password is " + userPassword);
-  return userPassword;
+//  password length declared
+function genPassLength() {
+  passwordLength = document.getElementById("passLength").value;
+  document.getElementById("lengthDisplay").innerHTML = " " + passwordLength;
 }
 
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+// password length retrieved
+let passwordLength = document.getElementById("passLength").value;
+
+
+const passwordEl = document.getElementById("passwordDisplay");
+
+
+
+function passwordGenerator() {
+  let userPassword = [];
+  // build password loop will execute here
+  for (i = 0; i < passwordLength; i++) {
+
+    let randomIndex = Math.floor(Math.random() * passwordArray.length);
+    let passwordChar = passwordArray[randomIndex];
+
+   userPassword.push(passwordChar);
+  }
+  return userPassword.join("");
+}
+
+// password will be displayed
+function displayPasswordResults() {
+  const password = passwordGenerator();
+
+ if (passwordArray.length === 0) {
+    passwordEl.classList.add('alert');
+    passwordEl.innerHTML = "! no character set selected !";
+    return;
+  }
+  // password will be printed
+  passwordEl.classList.remove('alert');
+  copyButton.classList.remove('hideButton');
+  passwordEl.innerHTML = password;
+}
+
+function copyPassword() {
+  passwordEl.select();
+  document.execCommand("copy");
+}
