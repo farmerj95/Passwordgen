@@ -1,126 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Password Generator</title>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
-    <link rel="stylesheet" type="text/css" href="style.css">
-<script src="./script.js"></script>
-</head>
-
-<body class="bg-secondary">
-
-    <main>
-        <nav class="navbar navbar-light bg-primary text-center">
-            <a class="navbar-brand text-light">Password Generator</a>
-            <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder=" favourite words" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0 bg-secondary text-light"
-                    type="submit">Search</button>
-            </form>
-        </nav>
-
-        <br />
-        <div class="container">
-
-            <div class="row">
-                <div class="card bg-dark text-secondary p-2" style="width: 75rem;">
-                    <div class="card-body">
-                        <div class="col-lg-8 col-sm-12 mx-auto">
-                            <div class="content">
-                                <h1>Generate favourite Password</h1>
-                            </div>
-
-
-
-                            <div class="character-selector pt-3 text-light">
-                                <h3> character sets.</h3>
-
-                                <div class="form-check text-light">
-                                    <input class="form-check-input" type="checkbox" id="charType0">
-                                    <label class="form-check-label">
-                                        Upper case
-                                    </label>
-                                </div>
-
-
-                                <div class="form-check text-light">
-                                    <input class="form-check-input" type="checkbox" id="charType1">
-                                    <label class="form-check-label">
-                                        Lower case
-                                    </label>
-                                </div>
-
-
-                                <div class="form-check text-light">
-                                    <input class="form-check-input" type="checkbox" id="charType2">
-                                    <label class="form-check-label">
-                                        Numbers
-                                    </label>
-                                </div>
-
-
-                                <div class="form-check text-light">
-                                    <input class="form-check-input" type="checkbox" id="charType3">
-                                    <label class="form-check-label">
-                                        Special Characters
-                                    </label>
-                                </div>
-
-                            </div>
-
-                            <div class="copy-box">
-                                <textarea readonly class="form-control" id="passwordDisplay" rows="4"
-                                    placeholder="Your Secure Password" aria-label="Generated Password"></textarea>
-
-                            </div>
-                            <div class="card-body">
-
-                                <div class="text-light">
-                                    <h3>Choose password length.</h3>
-
-                                    <input type="range" id="passLength" min="8" max="128"
-                                        oninput="genPassLength()"><span id="lengthDisplay">25</span>
-                                </div>
-
-                                <br />
-                                <button id="passwordGeneratorButton" class="btn btn-primary btn-m ">Generate
-                                    Password</button>
-                                <button title="Copy password" onclick="copyPassword()" id="copyButton"
-                                    class="btn btn-primary btn-m">copy to clipboard</button>
-
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Password Generator</h1>
+      </header>
+      <div class="card">
+        <div class="card-header">
+          <h2>Generate a Password</h2>
+          <p>Click the <strong>Generate Password</strong> button to get started.</p>
         </div>
-
-        <footer>
-        <div class="container">
-        <div class="card" style="width: 70rem;">
-            <div class="card-body bg-light text-dark">
-                <div class="previous passwords">
-                    <h3>Saved passwords</h3>
-                   <p>! This option will be coming soon !</p>
-                    <br />
-                    <div id="lastNums">
-
-                    </div>
-                </div>
-            </div>
+        <div class="card-body">
+          <textarea
+            readonly
+            id="password"
+            placeholder="Your Secure Password"
+            aria-label="Generated Password"
+          ></textarea>
+          <!-- adding a copy text button -->
+          <button onclick="copyPassword()">Copy password</button>
         </div>
-    </footer>
-    </main>
-
-
-</body>
-
+        <div class="card-footer">
+          <button id="generate" class="btn">Generate Password</button>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
 </html>
